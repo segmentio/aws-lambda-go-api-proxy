@@ -29,6 +29,7 @@ func (h *GorillaMuxAdapter) Proxy(event events.APIGatewayProxyRequest) (events.A
 	h.router.ServeHTTP(http.ResponseWriter(w), req)
 
 	resp, err := w.GetProxyResponse()
+        resp.Headers = map[string]string{"foo" : "bar"}	
 	if err != nil {
 		return core.GatewayTimeout(), core.NewLoggedError("Error while generating proxy response: %v", err)
 	}
